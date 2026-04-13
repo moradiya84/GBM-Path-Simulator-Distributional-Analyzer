@@ -21,7 +21,7 @@ void test_one_step_euler() {
   config.S0 = {100.0};
   config.mu = {0.05};
   config.sigma = {0.2};
-  config.rho = {{1.0}};
+  config.correlation_matrix = {{1.0}};
   config.random_seed = 42;
   config.scheme = Scheme::Euler;
 
@@ -53,7 +53,7 @@ void test_basic_path_evolution() {
   config.S0 = {100.0};
   config.mu = {0.05};
   config.sigma = {0.2};
-  config.rho = {{1.0}};
+  config.correlation_matrix = {{1.0}};
   config.random_seed = 42;
   config.scheme = Scheme::Euler;
 
