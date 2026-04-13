@@ -16,7 +16,7 @@ struct GBMConfig {
   std::vector<double> mu;    // Drifts [num_assets]
   std::vector<double> sigma; // Volatilities [num_assets]
   std::vector<std::vector<double>>
-      rho; // Correlation matrix [num_assets x num_assets]
+      correlation_matrix; // Correlation matrix [num_assets x num_assets]
 
   unsigned int random_seed;
   Scheme scheme;
