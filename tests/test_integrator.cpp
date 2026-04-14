@@ -3,15 +3,18 @@
 #include <cassert>
 #include <cmath>
 #include <iostream>
+#include <random>
 #include <vector>
 
 // Utility to check floating point equality
-bool is_close(double a, double b, double tol = 1e-6) {
+bool is_close(double a, double b, double tol = 1e-6)
+{
   return std::abs(a - b) < tol;
 }
 
 // 1. One-step Euler update test
-void test_one_step_euler() {
+void test_one_step_euler()
+{
   GBMConfig config;
   config.num_assets = 1;
   config.num_paths = 1;
@@ -43,7 +46,8 @@ void test_one_step_euler() {
 }
 
 // 2. Basic path evolution (sanity check) test
-void test_basic_path_evolution() {
+void test_basic_path_evolution()
+{
   GBMConfig config;
   config.num_assets = 1;
   config.num_paths = 1;
@@ -83,13 +87,64 @@ void test_basic_path_evolution() {
   std::cout << "[PASS] test_basic_path_evolution\n";
 }
 
-int main() {
+// 3. Milstein accuracy verification
+void test_milstein_accuracy()
+{
+  GBMConfig config;
+  config.num_assets = 1;
+  config.num_paths = 1;
+  config.num_steps = 100;
+  config.T = 1.0;
+  config.dt = config.T / config.num_steps;
+  config.S0 = {100.0};
+  config.mu = {0.05};
+  config.sigma = {0.2};
+  config.correlation_matrix = {{1.0}};
+  config.random_seed = 42;
+  config.scheme = Scheme::Milstein;
+
+  GBM model(config);
+  SDEIntegrator integrator(model);
+
+  std::mt19937 generator(config.random_seed);
+  std::normal_distribution<double> normal_dist(0.0, 1.0);
+
+  double S_euler = config.S0[0];
+  double S_milstein = config.S0[0];
+  double W_T = 0.0;
+
+  for (size_t step = 0; step < config.num_steps; ++step)
+  {
+    double dW = std::sqrt(config.dt) * normal_dist(generator);
+    W_T += dW;
+    S_euler = integrator.euler_step(0, S_euler, config.dt, dW);
+    S_milstein = integrator.milstein_step(0, S_milstein, config.dt, dW);
+  }
+
+  double S_exact = model.exact_solution_T(0, W_T);
+
+  double euler_error = std::abs(S_euler - S_exact);
+  double milstein_error = std::abs(S_milstein - S_exact);
+
+  std::cout << "[INFO] Exact: " << S_exact << ", Euler: " << S_euler
+            << " (Err: " << euler_error << ")"
+            << ", Milstein: " << S_milstein << " (Err: " << milstein_error
+            << ")\n";
+
+  assert(milstein_error < euler_error);
+  std::cout << "[PASS] test_milstein_accuracy (Milstein converges physically "
+               "tighter than Euler)\n";
+}
+
+int main()
+{
   std::cout << "========================================\n";
   std::cout << "Starting SDE Integrator Tests...\n";
   std::cout << "========================================\n";
 
   test_one_step_euler();
   test_basic_path_evolution();
+  test_milstein_accuracy();
 
   std::cout << "========================================\n";
   std::cout << "All integrations passed successfully.\n";
