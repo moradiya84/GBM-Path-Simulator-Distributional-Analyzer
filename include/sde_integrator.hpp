@@ -32,6 +32,18 @@ public:
     return S_n + mu_S * dt + sigma_S * dW;
   }
 
+  // Performs a single Milstein step for a specific asset
+  // Returns S_{n+1} = S_n + drift*dt + diffusion*dW +
+  // 0.5*diffusion*diffusion_derivative*(dW^2 - dt)
+  double milstein_step(size_t asset_idx, double S_n, double dt, double dW) const
+  {
+    double mu_S = model_.drift(asset_idx, S_n);
+    double sigma_S = model_.diffusion(asset_idx, S_n);
+    double d_sigma_S = model_.diffusion_derivative(asset_idx, S_n);
+
+    return S_n + mu_S * dt + sigma_S * dW + 0.5 * sigma_S * d_sigma_S * (dW * dW - dt);
+  }
+
   // Simulates an entire path for a single asset across configured number of
   // steps dW_path: vector of Brownian increments of size num_steps Returns a
   // vector of simulated prices of size (num_steps + 1) including S0
@@ -51,7 +63,15 @@ public:
 
     for (size_t step = 0; step < num_steps; ++step)
     {
-      current_price = euler_step(asset_idx, current_price, dt, dW_path[step]);
+      if (model_.get_config().scheme == Scheme::Milstein)
+      {
+        current_price =
+            milstein_step(asset_idx, current_price, dt, dW_path[step]);
+      }
+      else
+      {
+        current_price = euler_step(asset_idx, current_price, dt, dW_path[step]);
+      }
       path.push_back(current_price);
     }
 
