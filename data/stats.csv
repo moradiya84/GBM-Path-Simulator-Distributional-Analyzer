@@ -1,0 +1,4 @@
+asset_id,mean_empirical,mean_theoretical,variance_empirical,variance_theoretical,skewness_empirical,kurtosis_empirical
+0,105.225,105.127,445.957,451.029,0.597102,0.637822
+1,54.1882,54.1644,276.176,276.286,0.926153,1.51207
+2,77.3273,77.2841,135.753,135.912,0.444892,0.394776
