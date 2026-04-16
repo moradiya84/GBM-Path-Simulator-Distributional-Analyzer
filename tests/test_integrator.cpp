@@ -7,14 +7,12 @@
 #include <vector>
 
 // Utility to check floating point equality
-bool is_close(double a, double b, double tol = 1e-6)
-{
+bool is_close(double a, double b, double tol = 1e-6) {
   return std::abs(a - b) < tol;
 }
 
 // 1. One-step Euler update test
-void test_one_step_euler()
-{
+void test_one_step_euler() {
   GBMConfig config;
   config.num_assets = 1;
   config.num_paths = 1;
@@ -46,8 +44,7 @@ void test_one_step_euler()
 }
 
 // 2. Basic path evolution (sanity check) test
-void test_basic_path_evolution()
-{
+void test_basic_path_evolution() {
   GBMConfig config;
   config.num_assets = 1;
   config.num_paths = 1;
@@ -88,8 +85,7 @@ void test_basic_path_evolution()
 }
 
 // 3. Milstein accuracy verification
-void test_milstein_accuracy()
-{
+void test_milstein_accuracy() {
   GBMConfig config;
   config.num_assets = 1;
   config.num_paths = 1;
@@ -101,27 +97,37 @@ void test_milstein_accuracy()
   config.sigma = {0.2};
   config.correlation_matrix = {{1.0}};
   config.random_seed = 42;
-  config.scheme = Scheme::Milstein;
-
-  GBM model(config);
-  SDEIntegrator integrator(model);
 
   std::mt19937 generator(config.random_seed);
   std::normal_distribution<double> normal_dist(0.0, 1.0);
 
-  double S_euler = config.S0[0];
-  double S_milstein = config.S0[0];
+  // Synthesize 100-step Brownian Path
+  std::vector<std::vector<double>> dW_paths(
+      config.num_steps, std::vector<double>(config.num_assets));
   double W_T = 0.0;
 
-  for (size_t step = 0; step < config.num_steps; ++step)
-  {
+  for (size_t step = 0; step < config.num_steps; ++step) {
     double dW = std::sqrt(config.dt) * normal_dist(generator);
+    dW_paths[step][0] = dW;
     W_T += dW;
-    S_euler = integrator.euler_step(0, S_euler, config.dt, dW);
-    S_milstein = integrator.milstein_step(0, S_milstein, config.dt, dW);
   }
 
-  double S_exact = model.exact_solution_T(0, W_T);
+  // Simulate Euler Path via Multi-Asset Integration Engine
+  config.scheme = Scheme::Euler;
+  GBM model_euler(config);
+  SDEIntegrator integrator_euler(model_euler);
+  auto paths_euler = integrator_euler.simulate_path(dW_paths);
+  double S_euler = paths_euler.back()[0];
+
+  // Simulate Milstein Path via Multi-Asset Integration Engine
+  config.scheme = Scheme::Milstein;
+  GBM model_milstein(config);
+  SDEIntegrator integrator_milstein(model_milstein);
+  auto paths_milstein = integrator_milstein.simulate_path(dW_paths);
+  double S_milstein = paths_milstein.back()[0];
+
+  // Target true mathematical exact scalar
+  double S_exact = model_euler.exact_solution_T(0, W_T);
 
   double euler_error = std::abs(S_euler - S_exact);
   double milstein_error = std::abs(S_milstein - S_exact);
@@ -136,8 +142,7 @@ void test_milstein_accuracy()
                "tighter than Euler)\n";
 }
 
-int main()
-{
+int main() {
   std::cout << "========================================\n";
   std::cout << "Starting SDE Integrator Tests...\n";
   std::cout << "========================================\n";
