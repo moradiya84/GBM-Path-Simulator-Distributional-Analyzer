@@ -1,4 +1,5 @@
 #include "include/cholesky.hpp"
+#include "include/convergence.hpp"
 #include "include/gbm.hpp"
 #include "include/sde_integrator.hpp"
 #include <iomanip>
@@ -39,16 +40,11 @@ int main() {
       config.num_steps, std::vector<double>(config.num_assets));
 
   for (size_t step = 0; step < config.num_steps; ++step) {
-    // Step a: Generate M independent standard normals
     std::vector<double> z(config.num_assets);
     for (size_t i = 0; i < config.num_assets; ++i) {
       z[i] = normal_dist(generator);
     }
-
-    // Step b: Multiply by Cholesky factor L to correlate
     std::vector<double> correlated = cholesky.generate_correlated(z);
-
-    // Step c: Scale by sqrt(dt) to get actual Brownian increments
     for (size_t i = 0; i < config.num_assets; ++i) {
       dW_paths[step][i] = std::sqrt(config.dt) * correlated[i];
     }
@@ -57,7 +53,7 @@ int main() {
   // 5. Simulate the multi-asset path
   auto paths = integrator.simulate_path(dW_paths);
 
-  // 6. Print results
+  // 6. Print path results
   std::cout << std::fixed << std::setprecision(4);
   std::cout << "Step\tTime\t\tAsset 0\t\tAsset 1\t\tAsset 2\n";
   std::cout << std::string(72, '-') << "\n";
@@ -70,7 +66,45 @@ int main() {
     }
     std::cout << "\n";
   }
-
   std::cout << std::string(72, '-') << "\n";
+
+  // =========================================================
+  // 7. Convergence Benchmark
+  // =========================================================
+  std::cout << "\n=== Strong Convergence Benchmark ===\n\n";
+
+  // Use a single-asset config for convergence (cleaner benchmark)
+  GBMConfig conv_config;
+  conv_config.num_assets = 1;
+  conv_config.num_paths = 10000;
+  conv_config.num_steps = 10; // overridden by runner
+  conv_config.T = 1.0;
+  conv_config.dt = conv_config.T / conv_config.num_steps;
+  conv_config.S0 = {100.0};
+  conv_config.mu = {0.05};
+  conv_config.sigma = {0.2};
+  conv_config.correlation_matrix = {{1.0}};
+  conv_config.random_seed = 42;
+  conv_config.scheme = Scheme::Euler;
+
+  ConvergenceRunner runner(conv_config);
+  std::vector<size_t> step_counts = {10, 20, 50, 100, 200, 500};
+  auto conv_results = runner.run(step_counts);
+
+  // Print convergence results
+  std::cout << std::left << std::setw(12) << "Scheme" << std::setw(14) << "dt"
+            << std::setw(16) << "Mean Error" << std::setw(16) << "RMSE"
+            << std::setw(14) << "log(dt)" << std::setw(14) << "log(error)"
+            << "\n";
+  std::cout << std::string(86, '-') << "\n";
+
+  for (const auto &r : conv_results) {
+    std::cout << std::left << std::setw(12) << r.scheme << std::setw(14) << r.dt
+              << std::setw(16) << r.mean_error << std::setw(16) << r.rmse
+              << std::setw(14) << r.log_dt << std::setw(14) << r.log_error
+              << "\n";
+  }
+  std::cout << std::string(86, '-') << "\n";
+
   return 0;
 }
