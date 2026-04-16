@@ -1,8 +1,4 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/test_statistics.dir/src/cholesky.cpp.o"
-  "CMakeFiles/test_statistics.dir/src/cholesky.cpp.o.d"
-  "CMakeFiles/test_statistics.dir/src/statistics.cpp.o"
-  "CMakeFiles/test_statistics.dir/src/statistics.cpp.o.d"
   "CMakeFiles/test_statistics.dir/tests/test_statistics.cpp.o"
   "CMakeFiles/test_statistics.dir/tests/test_statistics.cpp.o.d"
   "test_statistics"

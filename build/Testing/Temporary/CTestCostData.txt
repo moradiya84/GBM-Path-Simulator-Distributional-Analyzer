@@ -1,0 +1,4 @@
+TestIntegrator 1 0.344732
+TestCholesky 1 0.411375
+TestStatistics 1 1.10808
+---

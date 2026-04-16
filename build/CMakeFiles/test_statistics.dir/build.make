@@ -86,49 +86,18 @@ CMakeFiles/test_statistics.dir/tests/test_statistics.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/test_statistics.dir/tests/test_statistics.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/moradiya84/Desktop/GBM Path Simulator & Distributional Analyzer/tests/test_statistics.cpp" -o CMakeFiles/test_statistics.dir/tests/test_statistics.cpp.s
 
-CMakeFiles/test_statistics.dir/src/statistics.cpp.o: CMakeFiles/test_statistics.dir/flags.make
-CMakeFiles/test_statistics.dir/src/statistics.cpp.o: /Users/moradiya84/Desktop/GBM\ Path\ Simulator\ &\ Distributional\ Analyzer/src/statistics.cpp
-CMakeFiles/test_statistics.dir/src/statistics.cpp.o: CMakeFiles/test_statistics.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/moradiya84/Desktop/GBM Path Simulator & Distributional Analyzer/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/test_statistics.dir/src/statistics.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/test_statistics.dir/src/statistics.cpp.o -MF CMakeFiles/test_statistics.dir/src/statistics.cpp.o.d -o CMakeFiles/test_statistics.dir/src/statistics.cpp.o -c "/Users/moradiya84/Desktop/GBM Path Simulator & Distributional Analyzer/src/statistics.cpp"
-
-CMakeFiles/test_statistics.dir/src/statistics.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/test_statistics.dir/src/statistics.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/moradiya84/Desktop/GBM Path Simulator & Distributional Analyzer/src/statistics.cpp" > CMakeFiles/test_statistics.dir/src/statistics.cpp.i
-
-CMakeFiles/test_statistics.dir/src/statistics.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/test_statistics.dir/src/statistics.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/moradiya84/Desktop/GBM Path Simulator & Distributional Analyzer/src/statistics.cpp" -o CMakeFiles/test_statistics.dir/src/statistics.cpp.s
-
-CMakeFiles/test_statistics.dir/src/cholesky.cpp.o: CMakeFiles/test_statistics.dir/flags.make
-CMakeFiles/test_statistics.dir/src/cholesky.cpp.o: /Users/moradiya84/Desktop/GBM\ Path\ Simulator\ &\ Distributional\ Analyzer/src/cholesky.cpp
-CMakeFiles/test_statistics.dir/src/cholesky.cpp.o: CMakeFiles/test_statistics.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/moradiya84/Desktop/GBM Path Simulator & Distributional Analyzer/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/test_statistics.dir/src/cholesky.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/test_statistics.dir/src/cholesky.cpp.o -MF CMakeFiles/test_statistics.dir/src/cholesky.cpp.o.d -o CMakeFiles/test_statistics.dir/src/cholesky.cpp.o -c "/Users/moradiya84/Desktop/GBM Path Simulator & Distributional Analyzer/src/cholesky.cpp"
-
-CMakeFiles/test_statistics.dir/src/cholesky.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/test_statistics.dir/src/cholesky.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/moradiya84/Desktop/GBM Path Simulator & Distributional Analyzer/src/cholesky.cpp" > CMakeFiles/test_statistics.dir/src/cholesky.cpp.i
-
-CMakeFiles/test_statistics.dir/src/cholesky.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/test_statistics.dir/src/cholesky.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/moradiya84/Desktop/GBM Path Simulator & Distributional Analyzer/src/cholesky.cpp" -o CMakeFiles/test_statistics.dir/src/cholesky.cpp.s
-
 # Object files for target test_statistics
 test_statistics_OBJECTS = \
-"CMakeFiles/test_statistics.dir/tests/test_statistics.cpp.o" \
-"CMakeFiles/test_statistics.dir/src/statistics.cpp.o" \
-"CMakeFiles/test_statistics.dir/src/cholesky.cpp.o"
+"CMakeFiles/test_statistics.dir/tests/test_statistics.cpp.o"
 
 # External object files for target test_statistics
 test_statistics_EXTERNAL_OBJECTS =
 
 test_statistics: CMakeFiles/test_statistics.dir/tests/test_statistics.cpp.o
-test_statistics: CMakeFiles/test_statistics.dir/src/statistics.cpp.o
-test_statistics: CMakeFiles/test_statistics.dir/src/cholesky.cpp.o
 test_statistics: CMakeFiles/test_statistics.dir/build.make
+test_statistics: libgbm_core.a
 test_statistics: CMakeFiles/test_statistics.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir="/Users/moradiya84/Desktop/GBM Path Simulator & Distributional Analyzer/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable test_statistics"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir="/Users/moradiya84/Desktop/GBM Path Simulator & Distributional Analyzer/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable test_statistics"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/test_statistics.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

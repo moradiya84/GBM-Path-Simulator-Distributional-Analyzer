@@ -86,65 +86,18 @@ CMakeFiles/gbm_simulator.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/gbm_simulator.dir/main.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/moradiya84/Desktop/GBM Path Simulator & Distributional Analyzer/main.cpp" -o CMakeFiles/gbm_simulator.dir/main.cpp.s
 
-CMakeFiles/gbm_simulator.dir/src/cholesky.cpp.o: CMakeFiles/gbm_simulator.dir/flags.make
-CMakeFiles/gbm_simulator.dir/src/cholesky.cpp.o: /Users/moradiya84/Desktop/GBM\ Path\ Simulator\ &\ Distributional\ Analyzer/src/cholesky.cpp
-CMakeFiles/gbm_simulator.dir/src/cholesky.cpp.o: CMakeFiles/gbm_simulator.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/moradiya84/Desktop/GBM Path Simulator & Distributional Analyzer/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/gbm_simulator.dir/src/cholesky.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/gbm_simulator.dir/src/cholesky.cpp.o -MF CMakeFiles/gbm_simulator.dir/src/cholesky.cpp.o.d -o CMakeFiles/gbm_simulator.dir/src/cholesky.cpp.o -c "/Users/moradiya84/Desktop/GBM Path Simulator & Distributional Analyzer/src/cholesky.cpp"
-
-CMakeFiles/gbm_simulator.dir/src/cholesky.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/gbm_simulator.dir/src/cholesky.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/moradiya84/Desktop/GBM Path Simulator & Distributional Analyzer/src/cholesky.cpp" > CMakeFiles/gbm_simulator.dir/src/cholesky.cpp.i
-
-CMakeFiles/gbm_simulator.dir/src/cholesky.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/gbm_simulator.dir/src/cholesky.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/moradiya84/Desktop/GBM Path Simulator & Distributional Analyzer/src/cholesky.cpp" -o CMakeFiles/gbm_simulator.dir/src/cholesky.cpp.s
-
-CMakeFiles/gbm_simulator.dir/src/statistics.cpp.o: CMakeFiles/gbm_simulator.dir/flags.make
-CMakeFiles/gbm_simulator.dir/src/statistics.cpp.o: /Users/moradiya84/Desktop/GBM\ Path\ Simulator\ &\ Distributional\ Analyzer/src/statistics.cpp
-CMakeFiles/gbm_simulator.dir/src/statistics.cpp.o: CMakeFiles/gbm_simulator.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/moradiya84/Desktop/GBM Path Simulator & Distributional Analyzer/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/gbm_simulator.dir/src/statistics.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/gbm_simulator.dir/src/statistics.cpp.o -MF CMakeFiles/gbm_simulator.dir/src/statistics.cpp.o.d -o CMakeFiles/gbm_simulator.dir/src/statistics.cpp.o -c "/Users/moradiya84/Desktop/GBM Path Simulator & Distributional Analyzer/src/statistics.cpp"
-
-CMakeFiles/gbm_simulator.dir/src/statistics.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/gbm_simulator.dir/src/statistics.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/moradiya84/Desktop/GBM Path Simulator & Distributional Analyzer/src/statistics.cpp" > CMakeFiles/gbm_simulator.dir/src/statistics.cpp.i
-
-CMakeFiles/gbm_simulator.dir/src/statistics.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/gbm_simulator.dir/src/statistics.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/moradiya84/Desktop/GBM Path Simulator & Distributional Analyzer/src/statistics.cpp" -o CMakeFiles/gbm_simulator.dir/src/statistics.cpp.s
-
-CMakeFiles/gbm_simulator.dir/src/convergence_runner.cpp.o: CMakeFiles/gbm_simulator.dir/flags.make
-CMakeFiles/gbm_simulator.dir/src/convergence_runner.cpp.o: /Users/moradiya84/Desktop/GBM\ Path\ Simulator\ &\ Distributional\ Analyzer/src/convergence_runner.cpp
-CMakeFiles/gbm_simulator.dir/src/convergence_runner.cpp.o: CMakeFiles/gbm_simulator.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/moradiya84/Desktop/GBM Path Simulator & Distributional Analyzer/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/gbm_simulator.dir/src/convergence_runner.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/gbm_simulator.dir/src/convergence_runner.cpp.o -MF CMakeFiles/gbm_simulator.dir/src/convergence_runner.cpp.o.d -o CMakeFiles/gbm_simulator.dir/src/convergence_runner.cpp.o -c "/Users/moradiya84/Desktop/GBM Path Simulator & Distributional Analyzer/src/convergence_runner.cpp"
-
-CMakeFiles/gbm_simulator.dir/src/convergence_runner.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/gbm_simulator.dir/src/convergence_runner.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/moradiya84/Desktop/GBM Path Simulator & Distributional Analyzer/src/convergence_runner.cpp" > CMakeFiles/gbm_simulator.dir/src/convergence_runner.cpp.i
-
-CMakeFiles/gbm_simulator.dir/src/convergence_runner.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/gbm_simulator.dir/src/convergence_runner.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/moradiya84/Desktop/GBM Path Simulator & Distributional Analyzer/src/convergence_runner.cpp" -o CMakeFiles/gbm_simulator.dir/src/convergence_runner.cpp.s
-
 # Object files for target gbm_simulator
 gbm_simulator_OBJECTS = \
-"CMakeFiles/gbm_simulator.dir/main.cpp.o" \
-"CMakeFiles/gbm_simulator.dir/src/cholesky.cpp.o" \
-"CMakeFiles/gbm_simulator.dir/src/statistics.cpp.o" \
-"CMakeFiles/gbm_simulator.dir/src/convergence_runner.cpp.o"
+"CMakeFiles/gbm_simulator.dir/main.cpp.o"
 
 # External object files for target gbm_simulator
 gbm_simulator_EXTERNAL_OBJECTS =
 
 gbm_simulator: CMakeFiles/gbm_simulator.dir/main.cpp.o
-gbm_simulator: CMakeFiles/gbm_simulator.dir/src/cholesky.cpp.o
-gbm_simulator: CMakeFiles/gbm_simulator.dir/src/statistics.cpp.o
-gbm_simulator: CMakeFiles/gbm_simulator.dir/src/convergence_runner.cpp.o
 gbm_simulator: CMakeFiles/gbm_simulator.dir/build.make
+gbm_simulator: libgbm_core.a
 gbm_simulator: CMakeFiles/gbm_simulator.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir="/Users/moradiya84/Desktop/GBM Path Simulator & Distributional Analyzer/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable gbm_simulator"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir="/Users/moradiya84/Desktop/GBM Path Simulator & Distributional Analyzer/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable gbm_simulator"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/gbm_simulator.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

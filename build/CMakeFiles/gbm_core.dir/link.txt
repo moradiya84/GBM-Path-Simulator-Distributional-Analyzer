@@ -1,0 +1,2 @@
+/usr/bin/ar qc libgbm_core.a CMakeFiles/gbm_core.dir/src/cholesky.cpp.o CMakeFiles/gbm_core.dir/src/statistics.cpp.o CMakeFiles/gbm_core.dir/src/convergence_runner.cpp.o
+/usr/bin/ranlib libgbm_core.a

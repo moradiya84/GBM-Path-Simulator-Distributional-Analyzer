@@ -65,6 +65,16 @@ CMAKE_BINARY_DIR = "/Users/moradiya84/Desktop/GBM Path Simulator & Distributiona
 #=============================================================================
 # Targets provided globally by CMake.
 
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running tests..."
+	/opt/homebrew/bin/ctest $(ARGS)
+.PHONY : test
+
+# Special rule for the target test
+test/fast: test
+.PHONY : test/fast
+
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running CMake cache editor..."
@@ -115,6 +125,19 @@ preinstall/fast:
 depend:
 	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
+
+#=============================================================================
+# Target rules for targets named gbm_core
+
+# Build rule for target.
+gbm_core: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gbm_core
+.PHONY : gbm_core
+
+# fast build rule for target.
+gbm_core/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gbm_core.dir/build.make CMakeFiles/gbm_core.dir/build
+.PHONY : gbm_core/fast
 
 #=============================================================================
 # Target rules for targets named gbm_simulator
@@ -197,9 +220,7 @@ src/cholesky.o: src/cholesky.cpp.o
 
 # target to build an object file
 src/cholesky.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/gbm_simulator.dir/build.make CMakeFiles/gbm_simulator.dir/src/cholesky.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_cholesky.dir/build.make CMakeFiles/test_cholesky.dir/src/cholesky.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_statistics.dir/build.make CMakeFiles/test_statistics.dir/src/cholesky.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gbm_core.dir/build.make CMakeFiles/gbm_core.dir/src/cholesky.cpp.o
 .PHONY : src/cholesky.cpp.o
 
 src/cholesky.i: src/cholesky.cpp.i
@@ -207,9 +228,7 @@ src/cholesky.i: src/cholesky.cpp.i
 
 # target to preprocess a source file
 src/cholesky.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/gbm_simulator.dir/build.make CMakeFiles/gbm_simulator.dir/src/cholesky.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_cholesky.dir/build.make CMakeFiles/test_cholesky.dir/src/cholesky.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_statistics.dir/build.make CMakeFiles/test_statistics.dir/src/cholesky.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gbm_core.dir/build.make CMakeFiles/gbm_core.dir/src/cholesky.cpp.i
 .PHONY : src/cholesky.cpp.i
 
 src/cholesky.s: src/cholesky.cpp.s
@@ -217,9 +236,7 @@ src/cholesky.s: src/cholesky.cpp.s
 
 # target to generate assembly for a file
 src/cholesky.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/gbm_simulator.dir/build.make CMakeFiles/gbm_simulator.dir/src/cholesky.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_cholesky.dir/build.make CMakeFiles/test_cholesky.dir/src/cholesky.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_statistics.dir/build.make CMakeFiles/test_statistics.dir/src/cholesky.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gbm_core.dir/build.make CMakeFiles/gbm_core.dir/src/cholesky.cpp.s
 .PHONY : src/cholesky.cpp.s
 
 src/convergence_runner.o: src/convergence_runner.cpp.o
@@ -227,7 +244,7 @@ src/convergence_runner.o: src/convergence_runner.cpp.o
 
 # target to build an object file
 src/convergence_runner.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/gbm_simulator.dir/build.make CMakeFiles/gbm_simulator.dir/src/convergence_runner.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gbm_core.dir/build.make CMakeFiles/gbm_core.dir/src/convergence_runner.cpp.o
 .PHONY : src/convergence_runner.cpp.o
 
 src/convergence_runner.i: src/convergence_runner.cpp.i
@@ -235,7 +252,7 @@ src/convergence_runner.i: src/convergence_runner.cpp.i
 
 # target to preprocess a source file
 src/convergence_runner.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/gbm_simulator.dir/build.make CMakeFiles/gbm_simulator.dir/src/convergence_runner.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gbm_core.dir/build.make CMakeFiles/gbm_core.dir/src/convergence_runner.cpp.i
 .PHONY : src/convergence_runner.cpp.i
 
 src/convergence_runner.s: src/convergence_runner.cpp.s
@@ -243,7 +260,7 @@ src/convergence_runner.s: src/convergence_runner.cpp.s
 
 # target to generate assembly for a file
 src/convergence_runner.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/gbm_simulator.dir/build.make CMakeFiles/gbm_simulator.dir/src/convergence_runner.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gbm_core.dir/build.make CMakeFiles/gbm_core.dir/src/convergence_runner.cpp.s
 .PHONY : src/convergence_runner.cpp.s
 
 src/statistics.o: src/statistics.cpp.o
@@ -251,8 +268,7 @@ src/statistics.o: src/statistics.cpp.o
 
 # target to build an object file
 src/statistics.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/gbm_simulator.dir/build.make CMakeFiles/gbm_simulator.dir/src/statistics.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_statistics.dir/build.make CMakeFiles/test_statistics.dir/src/statistics.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gbm_core.dir/build.make CMakeFiles/gbm_core.dir/src/statistics.cpp.o
 .PHONY : src/statistics.cpp.o
 
 src/statistics.i: src/statistics.cpp.i
@@ -260,8 +276,7 @@ src/statistics.i: src/statistics.cpp.i
 
 # target to preprocess a source file
 src/statistics.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/gbm_simulator.dir/build.make CMakeFiles/gbm_simulator.dir/src/statistics.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_statistics.dir/build.make CMakeFiles/test_statistics.dir/src/statistics.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gbm_core.dir/build.make CMakeFiles/gbm_core.dir/src/statistics.cpp.i
 .PHONY : src/statistics.cpp.i
 
 src/statistics.s: src/statistics.cpp.s
@@ -269,8 +284,7 @@ src/statistics.s: src/statistics.cpp.s
 
 # target to generate assembly for a file
 src/statistics.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/gbm_simulator.dir/build.make CMakeFiles/gbm_simulator.dir/src/statistics.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_statistics.dir/build.make CMakeFiles/test_statistics.dir/src/statistics.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gbm_core.dir/build.make CMakeFiles/gbm_core.dir/src/statistics.cpp.s
 .PHONY : src/statistics.cpp.s
 
 tests/test_cholesky.o: tests/test_cholesky.cpp.o
@@ -353,6 +367,8 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... test"
+	@echo "... gbm_core"
 	@echo "... gbm_simulator"
 	@echo "... test_cholesky"
 	@echo "... test_integrator"
