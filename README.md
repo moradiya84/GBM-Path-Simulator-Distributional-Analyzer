@@ -144,3 +144,39 @@ $$\text{error} = \frac{1}{N}\sum_{i=1}^{N} |S_T^{\text{numerical}} - S_T^{\text{
 Expected convergence orders:
 - **Euler–Maruyama**: O(Δt^0.5)
 - **Milstein**: O(Δt^1.0)
+
+## Results and Visualizations
+
+The `data/` directory contains sample PNG plots generated from running the simulation described in `main.cpp`.
+
+### 1. Simulated GBM Paths
+
+**Input Configuration:**
+- **Assets:** 3 correlated assets
+- **Paths:** 10,000 Monte Carlo paths
+- **Time Steps:** 100 steps over $T=1.0$
+- **Initial Prices ($S_0$):** $\{100.0, 50.0, 75.0\}$
+- **Drift ($\mu$):** $\{0.05, 0.08, 0.03\}$
+- **Volatility ($\sigma$):** $\{0.2, 0.3, 0.15\}$
+- **Correlation Matrix:**
+  $$ \begin{bmatrix} 1.0 & 0.5 & 0.2 \\ 0.5 & 1.0 & -0.3 \\ 0.2 & -0.3 & 1.0 \end{bmatrix} $$
+
+![Sample GBM Paths](data/paths_plot.png)
+
+### 2. Empirical Distribution Statistics
+
+Comparing the empirical mean, variance, skewness, and kurtosis of the simulated terminal prices against the theoretical exact moments. Data output is saved to `data/stats.csv`.
+
+![Terminal Distribution Statistics](data/stats_plot.png)
+
+### 3. Strong Convergence
+
+**Input Configuration:**
+- **Assets:** 1 asset
+- **Paths:** 10,000 reference paths for exact solution comparison
+- **Time Steps ($N$):** 10, 20, 50, 100, 200, 500 over $T=1.0$
+- **Scheme:** Euler–Maruyama
+
+The plot demonstrates the expected strong convergence rate for the selected numerical scheme ($\mathcal{O}(\Delta t^{0.5})$ for Euler). Data output is saved to `data/convergence.csv`.
+
+![Strong Convergence Error](data/convergence_plot.png)
