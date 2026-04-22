@@ -5,6 +5,8 @@
 #include <stdexcept>
 #include <vector>
 
+#include "time_grid.hpp"
+
 // SDEIntegrator Class:
 // Responsible for progressing the state of the asset prices using numerical
 // schemes.
@@ -48,11 +50,11 @@ public:
   // increments for all assets. Returns: a 2D vector of size (num_steps + 1) x
   // num_assets containing simulated prices.
   std::vector<std::vector<double>>
-  simulate_path(const std::vector<std::vector<double>> &dW_paths) const
+  simulate_path(const TimeGrid &grid, const std::vector<std::vector<double>> &dW_paths) const
   {
-    size_t num_steps = model_.get_config().num_steps;
+    size_t num_steps = grid.num_steps();
     size_t num_assets = model_.get_config().num_assets;
-    double dt = model_.get_config().dt;
+    double dt = grid.dt();
     std::vector<double> current_prices = model_.get_config().S0;
 
     if (dW_paths.size() != num_steps)
@@ -62,7 +64,6 @@ public:
     }
 
     std::vector<std::vector<double>> paths;
-    paths.reserve(num_steps + 1);
     paths.push_back(current_prices); // Push start prices
 
     for (size_t step = 0; step < num_steps; ++step)

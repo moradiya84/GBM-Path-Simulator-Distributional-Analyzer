@@ -3,7 +3,8 @@
 #include "gbm.hpp"
 #include <vector>
 
-struct AssetStatistics {
+struct AssetStatistics
+{
   size_t asset_idx;
   double mean_empirical;
   double mean_theoretical;
@@ -13,7 +14,8 @@ struct AssetStatistics {
   double kurtosis_empirical;
 };
 
-class Statistics {
+class Statistics
+{
 private:
   const GBM &model_;
 
@@ -28,13 +30,14 @@ public:
 
   // Theoretical GBM moments
   // E[S_T] = S0 * exp(mu * T)
-  double theoretical_mean(size_t asset_idx) const;
+  double theoretical_mean(size_t asset_idx, double T) const;
   // Var(S_T) = S0^2 * exp(2*mu*T) * (exp(sigma^2 * T) - 1)
-  double theoretical_variance(size_t asset_idx) const;
+  double theoretical_variance(size_t asset_idx, double T) const;
 
   // Computes all stats for a single asset given its terminal values across
   // paths
   AssetStatistics
   compute_asset_statistics(size_t asset_idx,
-                           const std::vector<double> &terminal_values) const;
+                           const std::vector<double> &terminal_values,
+                           double T) const;
 };

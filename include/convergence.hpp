@@ -18,9 +18,12 @@ struct ConvergenceResult {
 class ConvergenceRunner {
 private:
   GBMConfig base_config_;
+  double T_;
+  size_t num_paths_;
+  unsigned int random_seed_;
 
 public:
-  explicit ConvergenceRunner(const GBMConfig &base_config);
+  explicit ConvergenceRunner(const GBMConfig &base_config, double T, size_t num_paths, unsigned int random_seed);
 
   /* Runs the convergence benchmark over multiple step sizes.
      For each step size:

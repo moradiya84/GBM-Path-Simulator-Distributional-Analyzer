@@ -2,7 +2,8 @@
 
 #include <vector>
 
-class Cholesky {
+class Cholesky
+{
 private:
   std::vector<std::vector<double>> L_; // The lower triangular matrix factor L
   size_t size_;

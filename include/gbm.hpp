@@ -12,10 +12,6 @@ enum class Scheme
 struct GBMConfig
 {
   size_t num_assets;
-  size_t num_paths; // Number of monte ccarlo simulation
-  size_t num_steps;
-  double T;  // Maturity time
-  double dt; // Time step size = T / num_steps
 
   std::vector<double> S0;    // Initial prices [num_assets]
   std::vector<double> mu;    // Drifts [num_assets]
@@ -23,7 +19,6 @@ struct GBMConfig
   std::vector<std::vector<double>>
       correlation_matrix; // Correlation matrix [num_assets x num_assets]
 
-  unsigned int random_seed;
   Scheme scheme;
 };
 
@@ -90,8 +85,8 @@ public:
   }
 
   // Exact theoretical solution for asset i at maturity T
-  double exact_solution_T(size_t asset_idx, double W_T) const
+  double exact_solution_T(size_t asset_idx, double T, double W_T) const
   {
-    return exact_solution(asset_idx, config_.T, W_T);
+    return exact_solution(asset_idx, T, W_T);
   }
 };
