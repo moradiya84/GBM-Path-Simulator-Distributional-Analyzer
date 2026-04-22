@@ -90,33 +90,32 @@ double Statistics::compute_kurtosis(const std::vector<double> &terminal_values) 
 }
 
 // E[S_T] = S0 * exp(mu * T)
-double Statistics::theoretical_mean(size_t asset_idx) const
+double Statistics::theoretical_mean(size_t asset_idx, double T) const
 {
   const auto &cfg = model_.get_config();
-  return cfg.S0[asset_idx] * std::exp(cfg.mu[asset_idx] * cfg.T);
+  return cfg.S0[asset_idx] * std::exp(cfg.mu[asset_idx] * T);
 }
 
 // Var(S_T) = S0^2 * exp(2*mu*T) * (exp(sigma^2 * T) - 1)
-double Statistics::theoretical_variance(size_t asset_idx) const
+double Statistics::theoretical_variance(size_t asset_idx, double T) const
 {
   const auto &cfg = model_.get_config();
   double S0 = cfg.S0[asset_idx];
   double mu = cfg.mu[asset_idx];
   double sigma = cfg.sigma[asset_idx];
-  double T = cfg.T;
 
   return S0 * S0 * std::exp(2.0 * mu * T) * (std::exp(sigma * sigma * T) - 1.0);
 }
 
 AssetStatistics Statistics::compute_asset_statistics(
-    size_t asset_idx, const std::vector<double> &terminal_values) const
+    size_t asset_idx, const std::vector<double> &terminal_values, double T) const
 {
   AssetStatistics stats;
   stats.asset_idx = asset_idx;
   stats.mean_empirical = compute_mean(terminal_values);
-  stats.mean_theoretical = theoretical_mean(asset_idx);
+  stats.mean_theoretical = theoretical_mean(asset_idx, T);
   stats.variance_empirical = compute_variance(terminal_values);
-  stats.variance_theoretical = theoretical_variance(asset_idx);
+  stats.variance_theoretical = theoretical_variance(asset_idx, T);
   stats.skewness_empirical = compute_skewness(terminal_values);
   stats.kurtosis_empirical = compute_kurtosis(terminal_values);
   return stats;
