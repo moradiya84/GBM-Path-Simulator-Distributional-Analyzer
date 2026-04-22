@@ -12,6 +12,8 @@ add_library(gbm_core STATIC
     src/cholesky.cpp
     src/statistics.cpp
     src/convergence_runner.cpp
+    src/time_grid.cpp
+    src/rng.cpp
 )
 
 # Main executable
