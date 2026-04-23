@@ -1,17 +1,13 @@
 #pragma once
-
-#include <algorithm>
 #include <cstddef>
 
-namespace bs
-{
+namespace bs {
 
 // Abstract base class for option payoffs.
 // Concrete subclasses implement operator()(double S) to return the payoff
 // at terminal spot price S. This interface allows payoff objects to be
 // passed generically to a Monte Carlo pricer.
-class Payoff
-{
+class Payoff {
 public:
   virtual ~Payoff();
 
@@ -22,8 +18,7 @@ public:
 // ─── Vanilla payoffs ─────────────────────────────────────────────────────────
 
 // Call payoff: max(S - K, 0)
-class CallPayoff : public Payoff
-{
+class CallPayoff : public Payoff {
 public:
   explicit CallPayoff(double K);
   double operator()(double S) const override;
@@ -33,8 +28,7 @@ private:
 };
 
 // Put payoff: max(K - S, 0)
-class PutPayoff : public Payoff
-{
+class PutPayoff : public Payoff {
 public:
   explicit PutPayoff(double K);
   double operator()(double S) const override;
@@ -43,11 +37,11 @@ private:
   double K_; // Strike price
 };
 
-// ─── Digital (binary) payoffs ─────────────────────────────────────────────────
+// ─── Digital (binary) payoffs
+// ─────────────────────────────────────────────────
 
 // Digital call payoff: 1 if S >= K, else 0
-class DigitalCallPayoff : public Payoff
-{
+class DigitalCallPayoff : public Payoff {
 public:
   explicit DigitalCallPayoff(double K);
   double operator()(double S) const override;
@@ -57,8 +51,7 @@ private:
 };
 
 // Digital put payoff: 1 if S < K, else 0
-class DigitalPutPayoff : public Payoff
-{
+class DigitalPutPayoff : public Payoff {
 public:
   explicit DigitalPutPayoff(double K);
   double operator()(double S) const override;

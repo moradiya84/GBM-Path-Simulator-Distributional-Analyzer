@@ -33,7 +33,54 @@ public:
   double digital_call_price() const;
   double digital_put_price()  const;
 
-  // ─── Intermediate values (exposed for inspection / greeks later) ────────
+  // ─── Greeks ──────────────────────────────────────────────────────────────
+
+  /*
+   * Delta measures the rate of change of the theoretical option value with
+   * respect to changes in the underlying asset's price.
+   * Role: Used for directional hedging. A delta-neutral portfolio is immune
+   * to small movements in the underlying asset.
+   */
+  double call_delta() const;
+  double put_delta()  const;
+
+  /*
+   * Gamma measures the rate of change in the delta with respect to changes
+   * in the underlying price. (Second derivative of value w.r.t underlying price).
+   * Note: Gamma is identical for both vanilla calls and puts.
+   * Role: Measures the convexity of the option. High gamma means delta changes
+   * rapidly, requiring frequent re-hedging to maintain delta neutrality.
+   */
+  double gamma() const;
+
+  /*
+   * Theta measures the sensitivity of the value of the option to the passage
+   * of time (time decay).
+   * Note: This returns the annualized abstract continuous theta.
+   * Role: Represents the daily/annual cost of holding an option due to the
+   * shrinking time value. Options naturally lose value as expiration approaches.
+   */
+  double call_theta() const;
+  double put_theta()  const;
+
+  /*
+   * Vega measures sensitivity to volatility. It is the derivative of the
+   * option value with respect to the volatility of the underlying asset.
+   * Note: Vega is identical for both vanilla calls and puts.
+   * Role: Helps traders manage exposure to implied volatility changes.
+   */
+  double vega() const;
+
+  /*
+   * Rho measures sensitivity to the interest rate. It is the derivative of the
+   * option value with respect to the risk-free interest rate.
+   * Role: Used to hedge interest rate risk, typically only significant for
+   * long-dated options (LEAPS).
+   */
+  double call_rho() const;
+  double put_rho()  const;
+
+  // ─── Intermediate values (exposed for inspection) ────────────────────────
 
   double d1() const { return d1_; }
   double d2() const { return d2_; }
