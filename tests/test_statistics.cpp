@@ -2,6 +2,7 @@
 #include "../include/gbm.hpp"
 #include "../include/sde_integrator.hpp"
 #include "../include/statistics.hpp"
+#include "../include/time_grid.hpp"
 #include <cassert>
 #include <cmath>
 #include <iostream>
@@ -22,15 +23,10 @@ void test_known_inputs() {
 
   GBMConfig config;
   config.num_assets = 1;
-  config.num_paths = 8;
-  config.num_steps = 1;
-  config.T = 1.0;
-  config.dt = 1.0;
   config.S0 = {100.0};
   config.mu = {0.05};
   config.sigma = {0.2};
   config.correlation_matrix = {{1.0}};
-  config.random_seed = 42;
   config.scheme = Scheme::Euler;
 
   GBM model(config);
@@ -61,41 +57,43 @@ void test_known_inputs() {
 
 // 2. Compare GBM empirical vs theoretical using Monte Carlo
 void test_empirical_vs_theoretical() {
+  size_t num_paths = 100000;
+  size_t num_steps = 100;
+  double T = 1.0;
+  unsigned int random_seed = 42;
+
   GBMConfig config;
   config.num_assets = 1;
-  config.num_paths = 100000;
-  config.num_steps = 100;
-  config.T = 1.0;
-  config.dt = config.T / config.num_steps;
   config.S0 = {100.0};
   config.mu = {0.05};
   config.sigma = {0.2};
   config.correlation_matrix = {{1.0}};
-  config.random_seed = 42;
   config.scheme = Scheme::Euler;
+
+  TimeGrid grid(T, num_steps);
 
   GBM model(config);
   SDEIntegrator integrator(model);
   Cholesky cholesky(config.correlation_matrix);
   Statistics stats(model);
 
-  std::mt19937 generator(config.random_seed);
+  std::mt19937 generator(random_seed);
   std::normal_distribution<double> normal_dist(0.0, 1.0);
 
   // Simulate N paths and collect terminal values
-  std::vector<double> terminal_values(config.num_paths);
+  std::vector<double> terminal_values(num_paths);
 
-  for (size_t path = 0; path < config.num_paths; ++path) {
+  for (size_t path = 0; path < num_paths; ++path) {
     double current_price = config.S0[0];
-    for (size_t step = 0; step < config.num_steps; ++step) {
+    for (size_t step = 0; step < num_steps; ++step) {
       double z = normal_dist(generator);
-      double dW = std::sqrt(config.dt) * z;
-      current_price = integrator.euler_step(0, current_price, config.dt, dW);
+      double dW = std::sqrt(grid.dt()) * z;
+      current_price = integrator.euler_step(0, current_price, grid.dt(), dW);
     }
     terminal_values[path] = current_price;
   }
 
-  AssetStatistics result = stats.compute_asset_statistics(0, terminal_values);
+  AssetStatistics result = stats.compute_asset_statistics(0, terminal_values, T);
 
   std::cout << "\n--- Empirical vs Theoretical (100k paths) ---\n";
   std::cout << "Mean:     Empirical = " << result.mean_empirical

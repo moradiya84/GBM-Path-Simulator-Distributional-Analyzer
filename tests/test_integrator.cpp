@@ -1,5 +1,6 @@
 #include "../include/gbm.hpp"
 #include "../include/sde_integrator.hpp"
+#include "../include/time_grid.hpp"
 #include <cassert>
 #include <cmath>
 #include <iostream>
@@ -15,15 +16,10 @@ bool is_close(double a, double b, double tol = 1e-6) {
 void test_one_step_euler() {
   GBMConfig config;
   config.num_assets = 1;
-  config.num_paths = 1;
-  config.num_steps = 10;
-  config.T = 1.0;
-  config.dt = 0.1;
   config.S0 = {100.0};
   config.mu = {0.05};
   config.sigma = {0.2};
   config.correlation_matrix = {{1.0}};
-  config.random_seed = 42;
   config.scheme = Scheme::Euler;
 
   GBM model(config);
@@ -47,15 +43,10 @@ void test_one_step_euler() {
 void test_basic_path_evolution() {
   GBMConfig config;
   config.num_assets = 1;
-  config.num_paths = 1;
-  config.num_steps = 2; // Testing 2 steps
-  config.T = 0.2;
-  config.dt = 0.1;
   config.S0 = {100.0};
   config.mu = {0.05};
   config.sigma = {0.2};
   config.correlation_matrix = {{1.0}};
-  config.random_seed = 42;
   config.scheme = Scheme::Euler;
 
   GBM model(config);
@@ -86,28 +77,30 @@ void test_basic_path_evolution() {
 
 // 3. Milstein accuracy verification
 void test_milstein_accuracy() {
+  size_t num_steps = 100;
+  double T = 1.0;
+
   GBMConfig config;
   config.num_assets = 1;
-  config.num_paths = 1;
-  config.num_steps = 100;
-  config.T = 1.0;
-  config.dt = config.T / config.num_steps;
   config.S0 = {100.0};
   config.mu = {0.05};
   config.sigma = {0.2};
   config.correlation_matrix = {{1.0}};
-  config.random_seed = 42;
 
-  std::mt19937 generator(config.random_seed);
+  TimeGrid grid(T, num_steps);
+  double dt = grid.dt();
+
+  unsigned int random_seed = 42;
+  std::mt19937 generator(random_seed);
   std::normal_distribution<double> normal_dist(0.0, 1.0);
 
   // Synthesize 100-step Brownian Path
   std::vector<std::vector<double>> dW_paths(
-      config.num_steps, std::vector<double>(config.num_assets));
+      num_steps, std::vector<double>(config.num_assets));
   double W_T = 0.0;
 
-  for (size_t step = 0; step < config.num_steps; ++step) {
-    double dW = std::sqrt(config.dt) * normal_dist(generator);
+  for (size_t step = 0; step < num_steps; ++step) {
+    double dW = std::sqrt(dt) * normal_dist(generator);
     dW_paths[step][0] = dW;
     W_T += dW;
   }
@@ -116,18 +109,18 @@ void test_milstein_accuracy() {
   config.scheme = Scheme::Euler;
   GBM model_euler(config);
   SDEIntegrator integrator_euler(model_euler);
-  auto paths_euler = integrator_euler.simulate_path(dW_paths);
+  auto paths_euler = integrator_euler.simulate_path(grid, dW_paths);
   double S_euler = paths_euler.back()[0];
 
   // Simulate Milstein Path via Multi-Asset Integration Engine
   config.scheme = Scheme::Milstein;
   GBM model_milstein(config);
   SDEIntegrator integrator_milstein(model_milstein);
-  auto paths_milstein = integrator_milstein.simulate_path(dW_paths);
+  auto paths_milstein = integrator_milstein.simulate_path(grid, dW_paths);
   double S_milstein = paths_milstein.back()[0];
 
   // Target true mathematical exact scalar
-  double S_exact = model_euler.exact_solution_T(0, W_T);
+  double S_exact = model_euler.exact_solution_T(0, T, W_T);
 
   double euler_error = std::abs(S_euler - S_exact);
   double milstein_error = std::abs(S_milstein - S_exact);
