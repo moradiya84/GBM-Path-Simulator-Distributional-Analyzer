@@ -15,7 +15,7 @@ public:
   virtual double operator()(double S) const = 0;
 };
 
-// ─── Vanilla payoffs ─────────────────────────────────────────────────────────
+// Vanilla payoffs
 
 // Call payoff: max(S - K, 0)
 class CallPayoff : public Payoff {
@@ -37,8 +37,7 @@ private:
   double K_; // Strike price
 };
 
-// ─── Digital (binary) payoffs
-// ─────────────────────────────────────────────────
+// Digital (binary) payoffs
 
 // Digital call payoff: 1 if S >= K, else 0
 class DigitalCallPayoff : public Payoff {
