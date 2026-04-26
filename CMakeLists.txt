@@ -27,8 +27,10 @@ add_library(bs_pricing STATIC
 # ── Hedging Backtester library ──────────────────────────────────────────────
 add_library(hedger_core STATIC
     src/hedging/delta_hedger.cpp
+    src/hedging/hedging_runner.cpp
+    src/hedging/report_generator.cpp
 )
-target_link_libraries(hedger_core PRIVATE bs_pricing)
+target_link_libraries(hedger_core PRIVATE bs_pricing gbm_core)
 
 # ── Main executable ──────────────────────────────────────────────────────────
 add_executable(gbm_simulator main.cpp)
