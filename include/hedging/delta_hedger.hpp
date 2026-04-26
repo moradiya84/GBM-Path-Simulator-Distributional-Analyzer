@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../time_grid.hpp"
+#include "pnl_attribution.hpp"
 #include <vector>
 
 namespace hedging {
@@ -31,6 +32,9 @@ public:
   // Runs the same simulation but performs full P&L decomposition into Greeks.
   // cost_per_unit allows applying a proportional transaction cost per share
   // traded.
+  PathAttribution backtest_path_attributed(const TimeGrid &grid,
+                                           const std::vector<double> &spot_path,
+                                           double cost_per_unit = 0.0) const;
 
 private:
   double K_;
